@@ -5,7 +5,7 @@ from PIL import Image
 
 # Set page title and favicon
 st.set_page_config(
-    page_title="AI Image DetectorXXXXXXXXX",
+    page_title="AI Image Detector",
     page_icon=":camera:",  # You can choose an appropriate emoji as the icon
 )
 
@@ -14,7 +14,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #f8f8f8;  /* Background color for the whole app */
+        background-color: #000000;  /* Background color for the whole app */
     }
     .st-eb {
         background-color: #0077b6;  /* Background color for the file uploader */
