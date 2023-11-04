@@ -71,7 +71,7 @@ if uploaded_image is not None:
 
     # Make predictions
     prediction = model.predict(img)
-
+    st.write(f"Prediction: {prediction}")
     # Display the result
     if prediction < 0.5:
         result = "AI-Generated Image"
