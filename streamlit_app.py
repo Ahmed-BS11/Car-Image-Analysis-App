@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 from PIL import Image
-import joblib
+#import joblib
 
 # Set page title and favicon
 st.set_page_config(
