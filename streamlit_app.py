@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 import requests
 from PIL import Image
-from tensorflow.keras.models import load_model
 
 # Set page title and favicon
 st.set_page_config(
@@ -58,7 +57,8 @@ if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
-
+    from tensorflow.keras.models import load_model
+    
     # Load the InceptionV3 model
     model = load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
 
