@@ -5,7 +5,7 @@ from PIL import Image
 
 # Set page title and favicon
 st.set_page_config(
-    page_title="AI Image Detector",
+    page_title="AI Image Detector ",
     page_icon=":camera:",  # You can choose an appropriate emoji as the icon
 )
 
