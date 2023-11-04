@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import requests
 from PIL import Image
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 
 # Set page title and favicon
 st.set_page_config(
@@ -59,7 +59,7 @@ if uploaded_image is not None:
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Load the InceptionV3 model
-    model = load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
+    model =tf.keras.models.load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
 
     # Preprocess the image
     img = image.resize((32, 32))  # Resize the image to your desired dimensions
