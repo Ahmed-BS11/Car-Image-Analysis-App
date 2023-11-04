@@ -8,7 +8,8 @@ st.title("AI-Generated Image Detector")
 st.write("Upload an image, and we'll determine if it's AI-generated or not.")
 
 # Upload image
-uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
+uploaded_image = st.file_uploader(
+    "Choose an image...", type=["jpg", "png", "jpeg"])
 if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
@@ -18,20 +19,19 @@ if uploaded_image is not None:
     model = InceptionV3(weights='imagenet')
 
     # Preprocess the image
-    img = image.resize((299, 299))  # Resize image to the required input size of InceptionV3
+    img = image.resize((32, 32))  # Resize the image to your desired dimensions
     img = image.img_to_array(img)
+    img = img / 255.0  # Apply the same rescaling as in your data generators
     img = np.expand_dims(img, axis=0)
-    img = preprocess_input(img)
 
     # Make predictions
     prediction = model.predict(img)
-    decoded_predictions = decode_predictions(prediction, top=1)[0][0]
 
     # Display the result
-    if decoded_predictions[1].lower() == 'gazelle':
+    if prediction < 0.5:
         result = "AI-Generated Image"
     else:
         result = "Not AI-Generated Image"
 
     st.write(f"Prediction: {result}")
-    st.write(f"Confidence: {decoded_predictions[2] * 100:.2f}%")
+    st.write(f"Confidence: {100 - prediction[0][0] * 100:.2f}%")
