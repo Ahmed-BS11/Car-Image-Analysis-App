@@ -58,9 +58,9 @@ if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
-    
+
     # Load the InceptionV3 model
-    model = load_model("C:\Users\ahmed\Downloads\gnet.h5")
+    model = load_model("C:\\Users\\ahmed\\Downloads\\gnet.h5")
 
     # Preprocess the image
     # Resize the image to your desired dimensions
