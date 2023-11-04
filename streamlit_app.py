@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import requests
+import os
 from PIL import Image
 from tensorflow.keras.models import load_model
 
@@ -59,8 +59,8 @@ if uploaded_image is not None:
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    # Load the InceptionV3 model
-    model = load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
+    file_path = os.path.abspath(r"C:\Users\ahmed\Downloads\gnet.h5")
+    model = load_model(file_path)
 
     # Preprocess the image
     # Resize the image to your desired dimensions
