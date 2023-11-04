@@ -65,7 +65,7 @@ if uploaded_image is not None:
     # Preprocess the image
     # Resize the image to your desired dimensions
     img = image.resize((224, 224))
-    img = image.img_to_array(img)
+    img = np.array(img)
     img = img / 255.0  # Apply the same rescaling as in your data generators
     img = np.expand_dims(img, axis=0)
 
