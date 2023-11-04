@@ -59,7 +59,7 @@ if uploaded_image is not None:
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    file_path = os.path.abspath(r"C:\Users\ahmed\Downloads\gnet.h5")
+    file_path = os.path.abspath("gnet.h5")
     model = load_model(file_path)
 
     # Preprocess the image
