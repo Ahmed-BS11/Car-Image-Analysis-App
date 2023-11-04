@@ -2,8 +2,7 @@ import streamlit as st
 import numpy as np
 import requests
 from PIL import Image
-from tensorflow import keras
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 # Set page title and favicon
 st.set_page_config(
