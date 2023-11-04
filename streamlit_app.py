@@ -2,7 +2,8 @@ import streamlit as st
 import numpy as np
 import requests
 from PIL import Image
-import tensorflow as tf
+from tensorflow import keras
+from keras.models import load_model
 
 # Set page title and favicon
 st.set_page_config(
@@ -34,7 +35,8 @@ st.markdown(
 )
 
 # Upload image with custom styling
-uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"], key="file_uploader")
+uploaded_image = st.file_uploader("Choose an image...", type=[
+                                  "jpg", "png", "jpeg"], key="file_uploader")
 
 # Add some spacing for better visual separation
 st.write("")
@@ -59,10 +61,11 @@ if uploaded_image is not None:
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # Load the InceptionV3 model
-    model =tf.keras.models.load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
+    model = load_model(r"C:\Users\ahmed\Downloads\gnet.h5")
 
     # Preprocess the image
-    img = image.resize((224, 224))  # Resize the image to your desired dimensions
+    # Resize the image to your desired dimensions
+    img = image.resize((224, 224))
     img = image.img_to_array(img)
     img = img / 255.0  # Apply the same rescaling as in your data generators
     img = np.expand_dims(img, axis=0)
