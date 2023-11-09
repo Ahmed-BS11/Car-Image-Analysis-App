@@ -33,7 +33,7 @@ st.markdown(
 )
 
 uploaded_image = st.file_uploader("Choose an image...", type=[
-                                  "jpg", "png", "jpeg",'wbep'], key="file_uploader")
+                                  "jpg", "png", "jpeg",'webp'], key="file_uploader")
 
 
 st.write("")
