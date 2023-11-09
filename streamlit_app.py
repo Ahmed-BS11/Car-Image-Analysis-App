@@ -71,13 +71,13 @@ if uploaded_image is not None:
 
     # Make predictions
     prediction = model.predict(img)
-    st.write(f"Prediction: {prediction}")
+    #st.write(f"Prediction: {prediction}")
     # Display the result
     if prediction > 0.5:
         result = "AI-Generated Image"
-        st.write(f"Prediction: {result}")
+        st.markdown(f"<p style='font-size:16px;'>Prediction: {result}</p>", unsafe_allow_html=True)
         st.write(f"Confidence: {prediction[0][0] * 100:.2f}%")
     else:
         result = "Not AI-Generated Image"
-        st.write(f"Prediction: {result}")
+        st.markdown(f"<p style='font-size:16px;'>Prediction: {result}</p>", unsafe_allow_html=True)
         st.write(f"Confidence: {100 - prediction[0][0] * 100:.2f}%")
