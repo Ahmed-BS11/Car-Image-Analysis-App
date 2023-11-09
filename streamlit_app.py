@@ -33,7 +33,7 @@ st.markdown(
 )
 
 uploaded_image = st.file_uploader("Choose an image...", type=[
-                                  "jpg", "png", "jpeg"], key="file_uploader")
+                                  "jpg", "png", "jpeg",'wbep'], key="file_uploader")
 
 
 st.write("")
@@ -54,7 +54,7 @@ st.markdown(
 if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
-    st.image(image, caption="Uploaded Image", width=224)
+    st.image(image, caption="Uploaded Image", use_column_width=True)
 
     file_path = os.path.abspath("gnet.h5")
     model = load_model(file_path)
