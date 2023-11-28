@@ -58,10 +58,11 @@ rf = Roboflow(api_key="EJdF3gB2PwrQDNlVhauC")
 project = rf.workspace().project("car-damage-coco-dataset")
 model = project.version(4).model
 IM=model.predict("car4.jpg")
-st.image(IM, caption="Uploaded Image", use_column_width=True)
+st.image(IM, use_column_width=True)
 
 if uploaded_image is not None:
     # Display the uploaded image
+    st.image(IM, use_column_width=True)
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
