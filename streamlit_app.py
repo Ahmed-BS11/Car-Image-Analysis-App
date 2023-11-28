@@ -50,19 +50,9 @@ st.markdown(
     "2. We'll analyze the image and determine if it's AI-generated or not.",
     unsafe_allow_html=True,
 )
-from roboflow import Roboflow
-import matplotlib.pyplot as plt
-from PIL import Image
-
-rf = Roboflow(api_key="EJdF3gB2PwrQDNlVhauC")
-project = rf.workspace().project("car-damage-coco-dataset")
-model = project.version(4).model
-IM=model.predict("car4.jpg")
-st.image(IM, use_column_width=True)
 
 if uploaded_image is not None:
     # Display the uploaded image
-    st.image(IM, use_column_width=True)
     image = Image.open(uploaded_image)
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
