@@ -9,22 +9,11 @@ from tensorflow.keras.optimizers import Adam
 st.set_page_config(
     page_title="AI Image Detector ",
     page_icon=":camera:",  # You can choose an appropriate emoji as the icon
+    layout="wide"
+
 )
 # Custom CSS for styling
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-color: #000000;  /* Background color for the whole app */
-    }
-    .st-eb {
-        background-color: #0077b6;  /* Background color for the file uploader */
-        color: white;  /* Text color for the file uploader */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+
 
 st.title("AI-Generated Image Detector")
 st.markdown(
@@ -50,7 +39,9 @@ st.markdown(
 @st.cache_resource
 def load_aiornot_model():
     file_path = os.path.abspath("gnet.h5")
-    model = load_model(file_path)
+    model = load_model(file_path,compile=False)
+    optimizer = Adam(learning_rate=0.001, decay=1e-6)
+    model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
 @st.cache_resource
@@ -58,15 +49,8 @@ def load_severity_model():
     file_path = os.path.abspath("model_eff.h5")
     model = load_model(file_path,compile=False)
     optimizer = Adam(learning_rate=0.001, decay=1e-6)
-    model.compile(optimizer=optimizer, loss='your_loss', metrics=['accuracy'])
+    model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
-
-"""
-def load_severity_model():
-    file_path = os.path.abspath("model_eff.h5")
-    model = load_model(file_path)
-    return model
-"""
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
 st.sidebar.markdown("""---""")
@@ -108,7 +92,7 @@ if page == 'Damage Severity':
     if uploaded_image is not None:
         # Display the uploaded image
         image = Image.open(uploaded_image)
-        upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
+        upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True, width=600)
         # Preprocess the image
         # Resize the image to your desired dimensions
         img = image.resize((224, 224))
@@ -119,17 +103,9 @@ if page == 'Damage Severity':
         prediction = model.predict(img)
         #st.write(f"Prediction: {prediction}")
         # Display the result
-        st.markdown(prediction)
-        """
-        if prediction > 0.5:
-            result = "AI-Generated Image"
-            st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+        damage_classes = ["Minor Damage", "Moderate Damage", "Severe Damage"]
+        predicted_class = damage_classes[np.argmax(prediction)]
+        st.markdown(predicted_class)
 
-        else:
-            result = "Not AI-Generated Image"
-            st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
-        """
 
 
