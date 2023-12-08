@@ -36,7 +36,11 @@ uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "p
 if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
-    upload_columns[1].image(image, caption="Uploaded Image", use_container_width=True)
+    upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
+    st.markdown(
+        "<style>div[data-testid='st-expander-content-container'] div {text-align: center;}</style>",
+        unsafe_allow_html=True
+    )
 
 st.write("")
 
