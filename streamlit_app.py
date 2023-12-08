@@ -3,6 +3,7 @@ import numpy as np
 import os
 from PIL import Image
 from tensorflow.keras.models import load_model
+from tensorflow.keras.optimizers import Adam
 
 # Set page title and favicon
 st.set_page_config(
@@ -53,9 +54,18 @@ def load_aiornot_model():
     return model
 
 def load_severity_model():
+    file_path = "model_eff.h5"
+    model = load_model(file_path,compile=False)
+    optimizer = Adam(learning_rate=0.001, decay=1e-6)
+    model.compile(optimizer=optimizer, loss='your_loss', metrics=['accuracy'])
+    return model
+
+"""
+def load_severity_model():
     file_path = os.path.abspath("model_eff.h5")
     model = load_model(file_path)
     return model
+"""
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
 st.sidebar.markdown("""---""")
