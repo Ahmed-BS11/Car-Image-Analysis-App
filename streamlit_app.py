@@ -51,6 +51,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
+st.sidebar.markdown("""---""")
+st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
+
 if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
