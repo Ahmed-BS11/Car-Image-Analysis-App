@@ -54,7 +54,7 @@ def load_aiornot_model():
 
 @st.cache_resource
 def load_severity_model():
-    file_path = os.path.abspath("model_eff.h5")
+    file_path = os.path.abspath(r"C:\Users\ahmed\Desktop\Supcom\INDP3_AIM\P2\deep computer vision\AIorNOT\model_eff.h5")
     model = load_model(file_path)
     return model
 
@@ -107,10 +107,12 @@ if page == 'Damage Severity':
         img = np.array(img)
         img = img / 255.0  
         img = np.expand_dims(img, axis=0)
-        model=load_aiornot_model()
+        model=load_severity_model()
         prediction = model.predict(img)
         #st.write(f"Prediction: {prediction}")
         # Display the result
+        st.markdown(prediction)
+        """
         if prediction > 0.5:
             result = "AI-Generated Image"
             st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
@@ -120,5 +122,6 @@ if page == 'Damage Severity':
             result = "Not AI-Generated Image"
             st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
             st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+        """
 
 
