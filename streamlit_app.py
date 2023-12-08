@@ -37,10 +37,6 @@ if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
     upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
-    st.markdown(
-        "<style>div[data-testid='st-expander-content-container'] div {text-align: center;}</style>",
-        unsafe_allow_html=True
-    )
 
 st.write("")
 
@@ -61,6 +57,7 @@ def load_aiornot_model():
     file_path = os.path.abspath("gnet.h5")
     model = load_model(file_path)
     return model
+
 def load_severity_model():
     file_path = os.path.abspath(r"C:\Users\ahmed\Desktop\Supcom\INDP3_AIM\P2\deep computer vision\model_eff.h5")
     model = load_model(file_path)
