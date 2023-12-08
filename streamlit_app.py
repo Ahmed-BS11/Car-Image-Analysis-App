@@ -54,11 +54,11 @@ def load_aiornot_model():
 
 @st.cache_resource
 def load_severity_model():
-    model_file_path = 'model_eff.h5'
-    model = load_model(model_file_path)
+    current_directory = os.path.abspath(os.getcwd())
+    relative_path = "model_eff.h5"
+    file_path = os.path.join(current_directory, relative_path)
+    model = load_model(file_path)
     return model
-
-
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
 st.sidebar.markdown("""---""")
