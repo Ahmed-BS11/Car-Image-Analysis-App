@@ -9,9 +9,6 @@ st.set_page_config(
     page_title="AI Image Detector ",
     page_icon=":camera:",  # You can choose an appropriate emoji as the icon
 )
-left_co, cent_co,last_co = st.columns(3)
-with cent_co:
-    st.image("logo.png", use_column_width=False, width=200)
 # Custom CSS for styling
 st.markdown(
     """
@@ -39,7 +36,7 @@ uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "p
 if uploaded_image is not None:
     # Display the uploaded image
     image = Image.open(uploaded_image)
-    upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
+    upload_columns[1].image(image, caption="Uploaded Image", use_container_width=True)
 
 st.write("")
 
