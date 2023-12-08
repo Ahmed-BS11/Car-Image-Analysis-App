@@ -52,6 +52,7 @@ def load_aiornot_model():
     model = load_model(file_path)
     return model
 
+@st.cache_resource
 def load_severity_model():
     file_path = os.path.abspath("model_eff.h5")
     model = load_model(file_path)
