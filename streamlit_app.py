@@ -56,22 +56,30 @@ st.markdown(
     "2. We'll analyze the image and determine if it's AI-generated or not.",
     unsafe_allow_html=True,
 )
+@st.cache_resource
+def load_aiornot_model():
+    file_path = os.path.abspath("gnet.h5")
+    model = load_model(file_path)
+    return model
+def load_severity_model():
+    file_path = os.path.abspath(r"C:\Users\ahmed\Desktop\Supcom\INDP3_AIM\P2\deep computer vision\model_eff.h5")
+    model = load_model(file_path)
+    return model
+
+
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
 st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
+
 if page == 'AIorNot':
-
-    file_path = os.path.abspath("gnet.h5")
-    model = load_model(file_path)
-
     # Preprocess the image
     # Resize the image to your desired dimensions
     img = image.resize((224, 224))
     img = np.array(img)
     img = img / 255.0  
     img = np.expand_dims(img, axis=0)
-
+    model=load_aiornot_model
     prediction = model.predict(img)
     #st.write(f"Prediction: {prediction}")
     # Display the result
