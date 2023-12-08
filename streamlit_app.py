@@ -55,7 +55,7 @@ def load_aiornot_model():
 
 @st.cache_resource
 def load_severity_model():
-    file_path = os.path.abspath("gnet.h5")
+    file_path = os.path.abspath("model_eff.h5")
     model = load_model(file_path,compile=False)
     optimizer = Adam(learning_rate=0.001, decay=1e-6)
     model.compile(optimizer=optimizer, loss='your_loss', metrics=['accuracy'])
