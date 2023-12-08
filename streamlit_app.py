@@ -30,13 +30,7 @@ st.markdown(
     "<p style='text-align: center;'>Upload an image, and we'll determine if it's AI-generated or not.</p>",
     unsafe_allow_html=True,
 )
-upload_columns=st.columns([2,1])
-file_upload=upload_columns[0].expander(label='Upload Your Image')
-uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg",'webp'], key="file_uploader")
-if uploaded_image is not None:
-    # Display the uploaded image
-    image = Image.open(uploaded_image)
-    upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
+
 
 st.write("")
 
@@ -70,6 +64,13 @@ st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
 
 if page == 'AIorNot':
+    upload_columns=st.columns([2,1])
+    file_upload=upload_columns[0].expander(label='Upload Your Image')
+    uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg",'webp'], key="file_uploader")
+    if uploaded_image is not None:
+        # Display the uploaded image
+        image = Image.open(uploaded_image)
+        upload_columns[1].image(image, caption="Uploaded Image", use_column_width=True)
     # Preprocess the image
     # Resize the image to your desired dimensions
     img = image.resize((224, 224))
