@@ -107,7 +107,7 @@ if page == 'Damage Severity':
         img = np.array(img)
         img = img / 255.0  
         img = np.expand_dims(img, axis=0)
-        model=load_severity_model()
+        model=load_aiornot_model()
         prediction = model.predict(img)
         #st.write(f"Prediction: {prediction}")
         # Display the result
