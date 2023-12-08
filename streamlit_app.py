@@ -54,7 +54,7 @@ def load_aiornot_model():
 
 @st.cache_resource
 def load_severity_model():
-    file_path = os.path.abspath(r"C:\Users\ahmed\Desktop\Supcom\INDP3_AIM\P2\deep computer vision\AIorNOT\model_eff.h5")
+    file_path = os.path.abspath(r"C:/Users/ahmed/Desktop/Supcom/INDP3_AIM/P2/deep computer vision/AIorNOT/model_eff.h5")
     model = load_model(file_path)
     return model
 
