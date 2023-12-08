@@ -9,7 +9,9 @@ st.set_page_config(
     page_title="AI Image Detector ",
     page_icon=":camera:",  # You can choose an appropriate emoji as the icon
 )
-
+left_co, cent_co,last_co = st.columns(3)
+with cent_co:
+    st.image("logo.png", use_column_width=False, width=200)
 # Custom CSS for styling
 st.markdown(
     """
@@ -59,26 +61,26 @@ st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
 if page == 'AIorNot':
 
-        file_path = os.path.abspath("gnet.h5")
-        model = load_model(file_path)
+    file_path = os.path.abspath("gnet.h5")
+    model = load_model(file_path)
 
-        # Preprocess the image
-        # Resize the image to your desired dimensions
-        img = image.resize((224, 224))
-        img = np.array(img)
-        img = img / 255.0  
-        img = np.expand_dims(img, axis=0)
+    # Preprocess the image
+    # Resize the image to your desired dimensions
+    img = image.resize((224, 224))
+    img = np.array(img)
+    img = img / 255.0  
+    img = np.expand_dims(img, axis=0)
 
-        prediction = model.predict(img)
-        #st.write(f"Prediction: {prediction}")
-        # Display the result
-        if prediction > 0.5:
-            result = "AI-Generated Image"
-            st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+    prediction = model.predict(img)
+    #st.write(f"Prediction: {prediction}")
+    # Display the result
+    if prediction > 0.5:
+        result = "AI-Generated Image"
+        st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
 
-        else:
-            result = "Not AI-Generated Image"
-            st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+    else:
+        result = "Not AI-Generated Image"
+        st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
 
