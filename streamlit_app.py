@@ -7,6 +7,9 @@ from tensorflow.keras.optimizers import Adam
 import subprocess
 import uuid
 import glob
+from roboflow import Roboflow
+import io
+
 
 # Set page title and favicon
 st.set_page_config(
@@ -52,6 +55,13 @@ def load_severity_model():
     model = load_model(file_path,compile=False)
     optimizer = Adam(learning_rate=0.001, decay=1e-6)
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+    return model
+
+@st.cache_resource
+def load_automl():
+    rf = Roboflow(api_key="EJdF3gB2PwrQDNlVhauC")
+    project = rf.workspace().project("car-damage-coco-dataset")
+    model = project.version(4).model
     return model
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])
@@ -157,27 +167,16 @@ if page == 'Damaged Parts':
                 #os.rmdir(temp_dir)
             else:
                 st.error(f"YOLO process failed with error:\n{yolo_process.stderr.decode('utf-8')}")
-        if col2.button("Predict Damaged Parts with Mask R-CNN"):
-            # Save the image to a temporary directory with a unique filename
+        if col2.button("Segment Damaged Parts with Roboflow model"):
             temp_dir = "temp_images"
             os.makedirs(temp_dir, exist_ok=True)
             temp_image_path = os.path.join(temp_dir, f"uploaded_image_{uuid.uuid4()}.jpg")
             image.save(temp_image_path, format='JPEG')
 
-            # Run the YOLO command using subprocess with the image path
-            command = f"yolo task=detect mode=predict model=best.pt conf=0.25 source={temp_image_path}"
-            yolo_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            model = load_automl()
 
-            # Display the YOLO results
-            if yolo_process.returncode == 0:
-                # Get the latest subdirectory under "runs/detect"
-                latest_subdir = max(glob.glob(os.path.join("runs", "detect", "predict*")), key=os.path.getctime)
+            # Make a prediction request to the AutoML model
+            model.predict(temp_image_path).save("prediction.jpg")
 
-                result_image_path = os.path.join(latest_subdir, f"{os.path.basename(temp_image_path).split('.')[0]}.jpg")
-                result_image = Image.open(result_image_path)
-                col2.image(result_image, caption="YOLO Result", use_column_width=True)
-
-                # Remove the temporary directory after displaying the result
-                #os.rmdir(temp_dir)
-            else:
-                st.error(f"YOLO process failed with error:\n{yolo_process.stderr.decode('utf-8')}")
+            # Display the prediction image in Streamlit
+            col2.image("prediction.jpg", caption="Prediction Image", use_column_width=True)
