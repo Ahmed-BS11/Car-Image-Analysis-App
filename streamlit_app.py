@@ -188,9 +188,9 @@ page=st.sidebar.selectbox('### Select Algorithm',['AIorNot','Damage Severity','D
 st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
 
-st.sidebar.markdown("### Github Repo")
+#st.sidebar.markdown("### Github Repo")
 st.sidebar.markdown(
-    f"<a href='https://github.com/Ahmed-BS11/AIorNOT' target='_blank'><img src='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' alt='GitHub Repo' style='width: 50px; border-radius: 50%;'></a>",
+    "### Github Repo",f"<a href='https://github.com/Ahmed-BS11/AIorNOT' target='_blank'><img src='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' alt='GitHub Repo' style='width: 50px; border-radius: 50%;'></a>",
     unsafe_allow_html=True,
 )
 if page == 'AIorNot':
