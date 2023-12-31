@@ -208,7 +208,7 @@ if page == 'AIorNot':
             prediction = model.predict(img)
             
             # Display the result
-            if prediction > 0.5:
+            if prediction > 0.7:
                 result = "AI-Generated Image"
                 st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
                 st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
