@@ -7,9 +7,15 @@ from tensorflow.keras.optimizers import Adam
 import subprocess
 import uuid
 import glob
-from roboflow import Roboflow
 import io
 
+try:
+    from roboflow import Roboflow
+except ImportError as e:
+    if "libGL.so.1" in str(e):
+        print("Warning: Unable to import 'roboflow' due to missing libGL.so.1. Some functionality may be limited.")
+    else:
+        raise
 
 # Set page title and favicon
 st.set_page_config(
