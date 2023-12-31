@@ -325,5 +325,13 @@ if page == 'Repair cost':
             # Display the result
             damage_classes = ["Minor", "Moderate", "Severe"]
             predicted_class = damage_classes[np.argmax(prediction)]
-            st.markdown(f"<p style='font-size:60px;'>Your car is a: {brand}, which is a {car_types[brand]} car. Your car has a {damage} damage. The cost of repair is {repair_cost_by_type[car_types[brand]][damage][predicted_class]}</p>", unsafe_allow_html=True)
+            car_info_html = (
+                f"<p style='font-size:24px;'><span style='color: #3366ff;'>Your car</span> is a: "
+                f"<span style='font-size:30px; color: #ff6666;'>{brand}</span>, which is a "
+                f"<span style='font-size:30px; color: #33cc33;'>{car_types[brand]}</span> car. "
+                f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{damage}</span> damage. "
+                f"The cost of repair is <span style='font-size:36px; color: #ff3300;'>{repair_cost_by_type[car_types[brand]][damage][predicted_class]}$</span>.</p>"
+            )
+
+            st.markdown(car_info_html, unsafe_allow_html=True)
 
