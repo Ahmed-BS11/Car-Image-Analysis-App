@@ -84,7 +84,7 @@ car_types = {
     'Mercedes-Benz': 'Luxury',
     'Mini': 'Standard',
     'Tesla': 'Electric',
-    'GMC': 'SUV/Truck',
+    'GMC': 'SUV',
     'Alfa Romeo': 'Sport',
     'Studebaker': 'Classic',
     'Suzuki': 'Compact',
@@ -313,5 +313,17 @@ if page == 'Repair cost':
             image.save(temp_image_path, format='JPEG')
             brand=query(temp_image_path,API_URL1)[0]['label']
             damage=query(temp_image_path,API_URL2)[0]['label']
-            st.markdown(f"<p style='font-size:60px;'>Your car is a: {brand}, which is a {car_types[brand]} car. Your car has a {damage} damage</p>", unsafe_allow_html=True)
+            img = image.resize((224, 224))
+            img = np.array(img)
+            img = img / 255.0  
+            img = np.expand_dims(img, axis=0)
+            
+            # Load the model
+            model = load_severity_model()
+            prediction = model.predict(img)
+            
+            # Display the result
+            damage_classes = ["Minor", "Moderate", "Severe"]
+            predicted_class = damage_classes[np.argmax(prediction)]
+            st.markdown(f"<p style='font-size:60px;'>Your car is a: {brand}, which is a {car_types[brand]} car. Your car has a {damage} damage. The cost of repair is {repair_cost_by_type[car_types[brand]][damage][predicted_class]}</p>", unsafe_allow_html=True)
 
