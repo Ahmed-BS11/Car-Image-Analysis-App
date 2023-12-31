@@ -176,10 +176,21 @@ repair_cost_by_type = {
     },
     # Add more types and their repair cost details...
 }
+st.sidebar.write(
+    """
+    This interactive application allows you to analyze car images using various algorithms.
+    Choose from the options on the left to explore different functionalities.
+    """
+)
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Repair cost'])
 st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
 
+st.sidebar.markdown("### Github Repo")
+st.sidebar.markdown(
+    f"<a href='{'https://github.com/Ahmed-BS11/AIorNOT'}' target='_blank'><img src='{'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'}' alt='GitHub Repo' width='100'></a>",
+    unsafe_allow_html=True,
+)
 if page == 'AIorNot':
     st.markdown(
         "3. Determine if the image is AI-generated or not.",
