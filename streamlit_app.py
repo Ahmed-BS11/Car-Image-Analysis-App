@@ -313,6 +313,5 @@ if page == 'Repair cost':
             image.save(temp_image_path, format='JPEG')
             brand=query(temp_image_path,API_URL1)[0]['label']
             damage=query(temp_image_path,API_URL2)[0]['label']
-            st.markdown(f"<p style='font-size:60px;'>Your car is a: {brand}, which is a {car_types[brand]} car.
-                        Your car has a {damage} damage</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='font-size:60px;'>Your car is a: {brand}, which is a {car_types[brand]} car. Your car has a {damage} damage</p>", unsafe_allow_html=True)
 
