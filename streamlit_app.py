@@ -45,7 +45,7 @@ st.markdown(
 def load_aiornot_model():
     file_path = os.path.abspath("gnet.h5")
     model = load_model(file_path,compile=False)
-    optimizer = Adam(learning_rate=0.001, decay=1e-6)
+    optimizer = Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
@@ -53,15 +53,15 @@ def load_aiornot_model():
 def load_severity_model():
     file_path = os.path.abspath("model_eff.h5")
     model = load_model(file_path,compile=False)
-    optimizer = Adam(learning_rate=0.001, decay=1e-6)
+    optimizer = Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
 @st.cache_resource
 def load_automl():
     rf = Roboflow(api_key="EJdF3gB2PwrQDNlVhauC")
-    project = rf.workspace().project("car-damage-coco-dataset")
-    model = project.version(4).model
+    project = rf.workspace().project("car-damage-coco-v9i")
+    model = project.version(1).model
     return model
 
 page=st.sidebar.selectbox('Select Algorithm',['AIorNot','Damage Severity','Damaged Parts','Segmentation'])

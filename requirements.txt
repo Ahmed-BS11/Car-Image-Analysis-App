@@ -4,3 +4,4 @@ pandas
 numpy
 keras
 roboflow==1.1.9
+ultralytics
