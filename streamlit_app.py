@@ -19,22 +19,22 @@ except ImportError as e:
 
 # Set page title and favicon
 st.set_page_config(
-    page_title="AI Image Detector ",
-    page_icon=":camera:",  # You can choose an appropriate emoji as the icon
-    layout="wide"
-
+    page_title="Car Image Analysis App",
+    page_icon="🚗",  # Customized icon representing cars
+    layout="wide",
+    initial_sidebar_state="expanded",  # Set to "collapsed" if you prefer a collapsed sidebar initially
 )
 # Custom CSS for styling
 
-st.title("AI-Generated Image Detector")
+st.title("Car Image Analysis App")
+
+# Common instructions for all pages
 st.markdown(
-    "<p style='text-align: center;'>Upload an image, and we'll determine if it's AI-generated or not.</p>",
+    "<p style='text-align: center;'>Upload an image and utilize various algorithms to analyze car-related information.</p>",
     unsafe_allow_html=True,
 )
 
-
-st.write("")
-
+# Instructions based on the selected algorithm
 st.markdown(
     "#### Instructions",
     unsafe_allow_html=True,
@@ -44,7 +44,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(
-    "2. We'll analyze the image and determine if it's AI-generated or not.",
+    "2. Analyze the image using the selected algorithm.",
     unsafe_allow_html=True,
 )
 @st.cache_resource
@@ -181,6 +181,10 @@ st.sidebar.markdown("""---""")
 st.sidebar.write('Created by Faidi Hamza, Cherif Jawhar & Ben Salem Ahmed')
 
 if page == 'AIorNot':
+    st.markdown(
+        "3. Determine if the image is AI-generated or not.",
+        unsafe_allow_html=True,
+    )
     upload_columns = st.columns([2, 1])
     file_upload = upload_columns[0].expander(label='Upload Your Image')
     uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg", 'webp'], key="file_uploader")
@@ -214,6 +218,10 @@ if page == 'AIorNot':
                 st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
 
 if page == 'Damage Severity':
+    st.markdown(
+        "3. Predict the severity of the car damage.",
+        unsafe_allow_html=True,
+    )
     upload_columns = st.columns([2, 1])
     file_upload = upload_columns[0].expander(label='Upload Your Image')
     uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg", 'webp'], key="file_uploader")
@@ -244,6 +252,10 @@ if page == 'Damage Severity':
             st.markdown(f"<p style='font-size:40px;'>Confidence: {confidence * 100:.2f}%</p>", unsafe_allow_html=True)
 
 if page == 'Damaged Parts':
+    st.markdown(
+        "3. Detect and highlight the damaged parts in the image.",
+        unsafe_allow_html=True,
+    )
     upload_columns = st.columns([2, 1])
     file_upload = upload_columns[0].expander(label='Upload Your Image')
     uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg", 'webp'], key="file_uploader")
@@ -295,6 +307,10 @@ if page == 'Damaged Parts':
 
 
 if page == 'Repair cost':
+    st.markdown(
+        "3. Estimate the repair cost.",
+        unsafe_allow_html=True,
+    )
     upload_columns = st.columns([2, 1])
     file_upload = upload_columns[0].expander(label='Upload Your Image')
     uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg", 'webp'], key="file_uploader")
@@ -326,7 +342,7 @@ if page == 'Repair cost':
             damage_classes = ["Minor", "Moderate", "Severe"]
             predicted_class = damage_classes[np.argmax(prediction)]
             car_info_html = (
-                f"<p style='font-size:24px;'><span style='color: #3366ff;'>Your car</span> is a: "
+                f"<p style='font-size:24px;'>Your car is a: "
                 f"<span style='font-size:30px; color: #ff6666;'>{brand}</span>, which is a "
                 f"<span style='font-size:30px; color: #33cc33;'>{car_types[brand]}</span> car. "
                 f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{predicted_class} {damage}</span> damage. "
