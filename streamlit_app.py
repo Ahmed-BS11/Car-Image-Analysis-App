@@ -4,6 +4,7 @@ import os
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.optimizers import Adam
+import cv2
 import subprocess
 import uuid
 import glob

@@ -3,5 +3,6 @@ streamlit
 pandas
 numpy
 keras
+cv2
 roboflow==1.1.9
 ultralytics
