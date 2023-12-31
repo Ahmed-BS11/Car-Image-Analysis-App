@@ -329,7 +329,7 @@ if page == 'Repair cost':
                 f"<p style='font-size:24px;'><span style='color: #3366ff;'>Your car</span> is a: "
                 f"<span style='font-size:30px; color: #ff6666;'>{brand}</span>, which is a "
                 f"<span style='font-size:30px; color: #33cc33;'>{car_types[brand]}</span> car. "
-                f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{damage}</span> damage. "
+                f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{predicted_class} {damage}</span> damage. "
                 f"The cost of repair is <span style='font-size:36px; color: #ff3300;'>{repair_cost_by_type[car_types[brand]][damage][predicted_class]}$</span>.</p>"
             )
 
