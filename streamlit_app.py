@@ -337,31 +337,32 @@ if page == 'Repair cost':
         # Add a button for prediction
         col1, col2, col3 = st.columns([1,1,1]) # this used to center the button
         if col2.button("Predict repair cost"):
-            temp_dir = "temp_images"
-            os.makedirs(temp_dir, exist_ok=True)
-            temp_image_path = os.path.join(temp_dir, f"uploaded_image_{uuid.uuid4()}.jpg")
-            image.save(temp_image_path, format='JPEG')
-            brand=query(temp_image_path,API_URL1)[0]['label']
-            damage=query(temp_image_path,API_URL2)[0]['label']
-            img = image.resize((224, 224))
-            img = np.array(img)
-            img = img / 255.0  
-            img = np.expand_dims(img, axis=0)
-            
-            # Load the model
-            model = load_severity_model()
-            prediction = model.predict(img)
-            
-            # Display the result
-            damage_classes = ["Minor", "Moderate", "Severe"]
-            predicted_class = damage_classes[np.argmax(prediction)]
-            car_info_html = (
-                f"<p style='font-size:24px;'>Your car is a: "
-                f"<span style='font-size:30px; color: #ff6666;'>{brand}</span>, which is a "
-                f"<span style='font-size:30px; color: #33cc33;'>{car_types[brand]}</span> car. "
-                f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{predicted_class} {damage}</span> damage. "
-                f"The cost of repair is <span style='font-size:36px; color: #ff3300;'>{repair_cost_by_type[car_types[brand]][damage][predicted_class]}$</span>.</p>"
-            )
+            with st.spinner("Predicting repair cost..."):
+                temp_dir = "temp_images"
+                os.makedirs(temp_dir, exist_ok=True)
+                temp_image_path = os.path.join(temp_dir, f"uploaded_image_{uuid.uuid4()}.jpg")
+                image.save(temp_image_path, format='JPEG')
+                brand=query(temp_image_path,API_URL1)[0]['label']
+                damage=query(temp_image_path,API_URL2)[0]['label']
+                img = image.resize((224, 224))
+                img = np.array(img)
+                img = img / 255.0  
+                img = np.expand_dims(img, axis=0)
+                
+                # Load the model
+                model = load_severity_model()
+                prediction = model.predict(img)
+                
+                # Display the result
+                damage_classes = ["Minor", "Moderate", "Severe"]
+                predicted_class = damage_classes[np.argmax(prediction)]
+                car_info_html = (
+                    f"<p style='font-size:24px;'>Your car is a: "
+                    f"<span style='font-size:30px; color: #ff6666;'>{brand}</span>, which is a "
+                    f"<span style='font-size:30px; color: #33cc33;'>{car_types[brand]}</span> car. "
+                    f"Your car has a <span style='font-size:30px; color: #ffcc00;'>{predicted_class} {damage}</span> damage. "
+                    f"The cost of repair is <span style='font-size:36px; color: #ff3300;'>{repair_cost_by_type[car_types[brand]][damage][predicted_class]}$</span>.</p>"
+                )
 
-            st.markdown(car_info_html, unsafe_allow_html=True)
+                st.markdown(car_info_html, unsafe_allow_html=True)
 
