@@ -211,25 +211,26 @@ if page == 'AIorNot':
         # Add a button for prediction
         col1, col2, col3 = st.columns([1,1,1])
         if col2.button("Predict AI or Not"):
-            # Preprocess the image
-            img = image.resize((224, 224))
-            img = np.array(img)
-            img = img / 255.0  
-            img = np.expand_dims(img, axis=0)
-            
-            # Load the model
-            model = load_aiornot_model()
-            prediction = model.predict(img)
-            
-            # Display the result
-            if prediction > 0.7:
-                result = "AI-Generated Image"
-                st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
-            else:
-                result = "Not AI-Generated Image"
-                st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
-                st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+            with st.spinner("Predicting AI or Not..."):
+                # Preprocess the image
+                img = image.resize((224, 224))
+                img = np.array(img)
+                img = img / 255.0  
+                img = np.expand_dims(img, axis=0)
+                
+                # Load the model
+                model = load_aiornot_model()
+                prediction = model.predict(img)
+                
+                # Display the result
+                if prediction > 0.7:
+                    result = "AI-Generated Image"
+                    st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='font-size:40px;'>Confidence: {prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
+                else:
+                    result = "Not AI-Generated Image"
+                    st.markdown(f"<p style='font-size:60px;'>Prediction: {result}</p>", unsafe_allow_html=True)
+                    st.markdown(f"<p style='font-size:40px;'>Confidence: {100-prediction[0][0] * 100:.2f}%</p>", unsafe_allow_html=True)
 
 if page == 'Damage Severity':
     st.markdown(
@@ -248,22 +249,23 @@ if page == 'Damage Severity':
         # Add a button for prediction
         col1, col2, col3 = st.columns([1,1,1]) # this used to center the button
         if col2.button("Predict Damage Severity"):
-            # Preprocess the image
-            img = image.resize((224, 224))
-            img = np.array(img)
-            img = img / 255.0  
-            img = np.expand_dims(img, axis=0)
-            
-            # Load the model
-            model = load_severity_model()
-            prediction = model.predict(img)
-            
-            # Display the result
-            damage_classes = ["Minor Damage", "Moderate Damage", "Severe Damage"]
-            predicted_class = damage_classes[np.argmax(prediction)]
-            confidence = prediction[0][np.argmax(prediction)]
-            st.markdown(f"<p style='font-size:60px;'>Prediction: {predicted_class}</p>", unsafe_allow_html=True)
-            st.markdown(f"<p style='font-size:40px;'>Confidence: {confidence * 100:.2f}%</p>", unsafe_allow_html=True)
+            with st.spinner("Predicting Damage Severity..."):
+                # Preprocess the image
+                img = image.resize((224, 224))
+                img = np.array(img)
+                img = img / 255.0  
+                img = np.expand_dims(img, axis=0)
+                
+                # Load the model
+                model = load_severity_model()
+                prediction = model.predict(img)
+                
+                # Display the result
+                damage_classes = ["Minor Damage", "Moderate Damage", "Severe Damage"]
+                predicted_class = damage_classes[np.argmax(prediction)]
+                confidence = prediction[0][np.argmax(prediction)]
+                st.markdown(f"<p style='font-size:60px;'>Prediction: {predicted_class}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='font-size:40px;'>Confidence: {confidence * 100:.2f}%</p>", unsafe_allow_html=True)
 
 if page == 'Damaged Parts':
     st.markdown(

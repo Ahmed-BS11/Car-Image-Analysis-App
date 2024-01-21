@@ -9,6 +9,7 @@
     <a href="#getting-started">Getting Started</a> |
     <a href="#usage">Usage</a> |
     <a href="#models-and-apis">Models and APIs</a> |
+    <a href="#access-the-live-streamlit-app">Live Streamlit App</a> |
     <a href="#additional-information">Additional Information</a>
   </h4>
 </div>
@@ -21,7 +22,7 @@
 
 Welcome to the Car Image Analysis Streamlit App! This interactive application allows you to analyze car images using various algorithms, including AI image detection, damage severity assessment, damaged parts detection, and repair cost estimation.
 
-## Overview
+# Overview
 
 The application consists of several functionalities:
 
@@ -43,15 +44,14 @@ Detect and highlight damaged parts in the car image using two different algorith
 
 Estimate the repair cost based on the brand of the car, detected damage severity, and damaged parts. The application uses pretrained models for car brand recognition and damage detection from Hugging Face's model hub.
 
-## Getting Started
+# Getting Started
 
 Follow these steps to set up and run the Car Image Analysis Streamlit App:
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/car-image-analysis-app.git
-   cd car-image-analysis-app
+   git clone https://github.com/Ahmed-BS11/Cycling-Stations-Monitoring.git
 2. Install the required dependencies:
     ```bash
    pip install -r requirements.txt
@@ -60,13 +60,13 @@ Follow these steps to set up and run the Car Image Analysis Streamlit App:
     streamlit run streamlit_app.py
 4. Open your browser and navigate to the provided local URL to access the app.
 
-## Usage
+# Usage
 
 1. Choose the desired algorithm from the sidebar (AI Image Detection, Damage Severity, Damaged Parts, Repair Cost).
 2. Upload a car image by clicking the "Choose an image..." button.
 3. Analyze the image using the selected algorithm.
 
-## Models and APIs
+# Models and APIs
 
 The application uses the following models and APIs:
 
@@ -101,5 +101,10 @@ For predicting repair costs, the application utilizes the following components:
     - `car_types`: Maps car brands to their corresponding types, such as Luxury or Standard.
     - `repair_cost_by_type`: Maps car types, damage types, and severities to estimated repair costs.
   
-## Additional Information
+# Access the Live Streamlit App
+
+🚗 Explore the Car Image Analysis App hosted on Streamlit **[Car Image Analysis App](https://aiornot.streamlit.app/) 🚀**. Interact with the various algorithms and models to analyze car images effortlessly!
+
+
+# Additional Information
 - For more details on each algorithm, model training, and external dependencies, refer to the specific sections in the source code.
