@@ -354,8 +354,8 @@ if page == 'Repair cost':
                 os.makedirs(temp_dir, exist_ok=True)
                 temp_image_path = os.path.join(temp_dir, f"uploaded_image_{uuid.uuid4()}.jpg")
                 image.save(temp_image_path, format='JPEG')
-                brand=query(temp_image_path,API_URL1)[0]['label']
-                damage=query(temp_image_path,API_URL2)[0]['label']
+                brand=query(temp_image_path,API_URL1, timeout=30)[0]['label']
+                damage=query(temp_image_path,API_URL2, timeout=30)[0]['label']
                 img = image.resize((224, 224))
                 img = np.array(img)
                 img = img / 255.0  
