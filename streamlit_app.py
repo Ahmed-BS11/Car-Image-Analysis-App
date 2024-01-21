@@ -74,11 +74,17 @@ headers = {"Authorization": "Bearer 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"}
 API_URL1 = "https://api-inference.huggingface.co/models/dima806/car_brand_image_detection"
 API_URL2 = "https://api-inference.huggingface.co/models/beingamit99/car_damage_detection"
 
-def query(filename,API_URL):
+def query(filename, API_URL, timeout=30):
     with open(filename, "rb") as f:
         data = f.read()
-    response = requests.post(API_URL, headers=headers, data=data)
-    return response.json()
+    try:
+        response = requests.post(API_URL, headers=headers, data=data, timeout=timeout)
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error during API request: {e}")
+        return None  # You can modify this part based on your error handling logic
+
 car_types = {
     'Aston Martin': 'Luxury',
     'Mercedes-Benz': 'Luxury',
