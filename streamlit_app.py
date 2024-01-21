@@ -327,6 +327,10 @@ if page == 'Repair cost':
         "3. Estimate the repair cost.",
         unsafe_allow_html=True,
     )
+    st.markdown(
+    "4. The API response may take some time. If it fails, please wait for a moment and try again.",
+    unsafe_allow_html=True,
+)
     upload_columns = st.columns([2, 1])
     file_upload = upload_columns[0].expander(label='Upload Your Image')
     uploaded_image = file_upload.file_uploader("Choose an image...", type=["jpg", "png", "jpeg", 'webp'], key="file_uploader")
